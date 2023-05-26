@@ -1,0 +1,48 @@
+﻿@section Scripts{
+
+    <script>
+        var urlApi = "https://34.226.249.201";
+
+        $(document).ready(function() {
+            $("#botoncargar").click(function() {
+
+                var request = "api/Personajes";
+                $.ajax({
+                    url: urlApi + request,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        var html = "";
+                        $.each(data, function(index, perso) {
+                            html += "<tr>";
+                            html += "<td>" + perso.idPersonaje + "</td>";
+                            html += "<td>" + perso.nombre + "</td>";
+                            html += "<td><img style='width:200px; height:200px' src='"+perso.imagen+"'/></td>";
+                            html += "</tr>";
+                            $("#tablapersonajes tbody").html(html);
+                        })
+
+                    }
+                })
+
+            });
+
+        });
+    </script>
+
+}
+
+<button type="button" id="botoncargar" class="btn btn-outline-dark">
+    Cargar Personajes
+</button>
+<hr/>
+<table class="table table-bordered" id="tablapersonajes">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
